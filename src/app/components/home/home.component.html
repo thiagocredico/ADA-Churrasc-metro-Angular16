@@ -1,0 +1,12 @@
+<section class="content p-10 ">
+  <div class="text-center flex flex-col items-center gap-4">
+    <h1 class="text-3xl font-bold">Bem-vindo ao Churrascômetro</h1>
+
+    <button mat-raised-button [routerLink]="['/churrasco']">
+      Cálcular churrasco
+    </button>
+    <button mat-raised-button [routerLink]="['/calculos']">
+      Histórico de cálculos </button>
+    <button mat-flat-button color="primary" (click)="irParaLogin()">Login</button>
+  </div>
+</section>

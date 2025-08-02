@@ -1,0 +1,99 @@
+<!-- <p>churrasco works!</p> -->
+
+<div class="container flex flex-col align-middle items-center justify-center mx-auto mt-4 max-w-screen-md">
+  <mat-stepper #stepper orientation="vertical" [linear]="true" class="container mx-auto">
+    <mat-step [stepControl]="formPessoas">
+      <form [formGroup]="formPessoas" class="flex flex-col">
+        <ng-template matStepLabel>
+          Defina o número de participantes:
+        </ng-template>
+
+        <mat-form-field class="mt-2">
+          <mat-label>Adultos</mat-label>
+          <input matInput type="number" formControlName="adultos" />
+
+          <mat-error *ngIf="formPessoas.get('adultos')?.hasError('required')">
+            Um adulto é obrigatório
+          </mat-error>
+
+          <mat-error *ngIf="formPessoas.get('adultos')?.hasError('min')">
+            Pelo menos um adulto é obrigatório
+          </mat-error>
+
+
+        </mat-form-field>
+
+        <mat-form-field class="mt-2">
+          <mat-label>Crianças</mat-label>
+          <input matInput type="number" formControlName="criancas" />
+          <mat-error *ngIf="formPessoas.get('criancas')?.hasError('required')">
+            O campo crianças é obrigatório
+          </mat-error>
+          <mat-error *ngIf="formPessoas.get('criancas')?.hasError('min')">
+            O número de crianças não pode ser menor que zero
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <button mat-flat-button color="primary" class="mt-2 w-full font-semibold" matStepperNext
+        [disabled]="formPessoas.invalid">
+        Avançar
+      </button>
+
+    </mat-step>
+
+    <mat-step [stepControl]="formProteinas">
+      <form [formGroup]="formProteinas" class="flex flex-col">
+        <ng-template matStepLabel>
+          Escolha as proteinas:
+        </ng-template>
+        <ng-container *ngFor="let proteina of proteinas ">
+          <mat-checkbox [formControlName]="proteina.nome">{{proteina.nome}}</mat-checkbox>
+        </ng-container>
+        <mat-error *ngIf="formProteinas.hasError('peloMenosUm')">
+          Selecione pelo menos uma proteína.
+        </mat-error>
+      </form>
+      <button mat-stroked-button color="primary" class="mt-2 w-full font-semibold" matStepperPrevious>
+        Retornar
+      </button>
+      <button mat-flat-button color="primary" class="mt-2 w-full font-semibold" matStepperNext
+        [disabled]="formProteinas.invalid">
+        Avançar
+      </button>
+    </mat-step>
+
+    <mat-step [stepControl]="formBebidas">
+      <form [formGroup]="formBebidas" class="flex flex-col">
+        <ng-template matStepLabel>
+          Escolha as bebidas:
+        </ng-template>
+        <ng-container *ngFor="let bebida of bebidas ">
+          <mat-checkbox [formControlName]="bebida.nome">{{bebida.nome}}</mat-checkbox>
+        </ng-container>
+        <mat-error *ngIf="formBebidas.hasError('peloMenosUm')">
+          Selecione pelo menos uma bebida.
+        </mat-error>
+      </form>
+      <button mat-stroked-button color="primary" class="mt-2 w-full font-semibold" matStepperPrevious>
+        Retornar
+      </button>
+      <button mat-flat-button color="accent" class="mt-2 w-full font-bold" type="submit" (click)="calcularChurrasco()"
+        [disabled]="formBebidas.invalid">
+        Calcular
+      </button>
+    </mat-step>
+  </mat-stepper>
+</div>
+
+<div class="container flex flex-col align-middle items-center justify-center mx-auto mt-4" *ngIf="exibirResultados">
+  O valor total do churrasco é {{ valor_total | currency:'BRL' }}<br>
+  <span *ngIf="dataHoraCalculo">
+    Cálculo realizado em: {{ dataHoraCalculo | date:'dd/MM/yyyy HH:mm:ss' }}
+  </span>
+  <button mat-flat-button color="primary" class="mt-2" (click)="salvarResultado()">Salvar</button>
+</div>
+<div class="container flex flex-col align-middle items-center justify-center mx-auto mt-4">
+
+  <button mat-flat-button color="primary" class="mt-2" (click)="reiniciar()">Reiniciar</button>
+  <button mat-flat-button color="accent" class="mt-2" (click)="irParaCalculos()">Ver histórico de cálculos</button>
+</div>

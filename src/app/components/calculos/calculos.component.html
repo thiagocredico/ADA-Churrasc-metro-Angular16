@@ -1,0 +1,19 @@
+<div class="container flex flex-col align-middle items-center justify-center mx-auto mt-4">
+    <h2>Histórico de Churrascos</h2>
+    <div *ngIf="churrascos.length; else vazio">
+        <ul class="list-decimal">
+            <li  *ngFor="let churrasco of churrascos">
+                Currasco calculado: {{ churrasco.valor | currency:'BRL' }} em {{ churrasco.dataHora | date:'dd/MM/yyyy
+                HH:mm:ss' }} <br>
+            </li>
+        </ul>
+    </div>
+    <ng-template #vazio>
+        Nenhum churrasco salvo.
+    </ng-template>
+    <div class="mt-4 flex gap-2">
+        <button mat-flat-button color="primary" (click)="voltarHome()">Voltar ao Home</button>
+        <button mat-flat-button color="accent" (click)="voltarChurrasco()">Voltar ao Churrasco</button>
+        <button mat-flat-button color="warn" (click)="limparHistorico()">Limpar Histórico</button>
+    </div>
+</div>

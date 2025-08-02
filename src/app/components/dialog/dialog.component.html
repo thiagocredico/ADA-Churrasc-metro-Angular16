@@ -1,0 +1,8 @@
+<div class="container flex flex-col align-middle items-center justify-center mx-auto m-4 max-w-screen-md">
+    <h2 mat-dialog-title>Confirmação</h2>
+    <mat-dialog-content class="p-4">{{ data.mensagem }}</mat-dialog-content>
+    <mat-dialog-actions class="gap-4 !flex !justify-evenly p-4">
+      <button mat-flat-button color="primary" class="" (click)="onNoClick()">Cancelar</button>
+      <button mat-flat-button color="warn" class="" (click)="onYesClick()">Apagar</button>
+    </mat-dialog-actions>
+</div>
