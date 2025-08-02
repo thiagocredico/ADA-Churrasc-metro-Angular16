@@ -9,7 +9,7 @@ import { Bebidas } from '../interfaces/bebidas.interface';
 })
 export class ChurrascoService {
 
-  private API_URL = 'http://localhost:3000'
+  private API_URL = 'https://api-churrascometro.vercel.app'
 
   constructor(private http: HttpClient) { }
 
